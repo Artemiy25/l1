@@ -1,0 +1,52 @@
+classDiagram
+    direction TB
+    class Application {
+        <<AL>>
+        -ShipRegistry& _registry
+        +execute(args) string
+        -add(args) string
+        -remove(args) string
+        -update(args) string
+        -view() string
+        -save(args) string
+        -load(args) string
+    }
+    class ShipRegistry {
+        <<DL>>
+        -map~string, Ship~ _ships
+        +addShip(ship) bool
+        +updateShip(ship) bool
+        +removeShip(name) bool
+        +hasShip(name) bool
+        +getShip(name) Ship
+        +getShips() map
+        +saveToFile(filename) bool
+        +loadFromFile(filename) bool
+    }
+    class Ship {
+        <<DL>>
+        -string _name
+        -int _dryTonnage
+        -int _fullTonnage
+        -ShipType _type
+        +getName() string
+        +getDryTonnage() int
+        +getFullTonnage() int
+        +getType() ShipType
+        +invariant() bool
+    }
+    class ShipType {
+        <<enumeration>>
+        DryCargo
+        Tanker
+        Cruise
+    }
+    class FileStorage {
+        <<IL>>
+        +saveLines(filename, lines) bool
+        +loadLines(filename, lines) bool
+    }
+    Application --> ShipRegistry : вызывает
+    ShipRegistry o-- Ship : хранит
+    Ship --> ShipType : тип
+    ShipRegistry ..> FileStorage : использует

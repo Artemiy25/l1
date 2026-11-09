@@ -1,0 +1,13 @@
+bin/
+build/
+doc/html/
+doc/latex/
+*.result
+*.gcda
+*.gcno
+*.info
+coverage/
+public/
+.vscode/
+*.data
+!test/*.data

@@ -1,0 +1,23 @@
+failed=0
+rm -f build/*.data
+
+for test_file in test/*.test
+do
+    name=${test_file%.test}
+    bin/lab < $test_file > $name.result
+    if diff $name.expected $name.result > /dev/null
+    then
+        echo "OK $test_file"
+    else
+        echo "FAIL $test_file"
+        diff $name.expected $name.result
+        failed=$((failed+1))
+    fi
+done
+
+if [ $failed -ne 0 ]
+then
+    echo "не прошло: $failed"
+    exit 1
+fi
+echo "все тесты прошли"

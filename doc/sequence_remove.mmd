@@ -1,0 +1,26 @@
+sequenceDiagram
+    autonumber
+    actor User as Пользователь
+    box rgb(232,240,254) UI - интерфейс
+        participant Main as main()
+    end
+    box rgb(232,247,236) AL - операционный
+        participant App as app: Application
+    end
+    box rgb(254,243,224) DL - предметная область
+        participant Reg as registry: ShipRegistry
+    end
+    User->>Main: ввод строки "remove Volga"
+    Main->>Main: splitBySpaces(line) = ["remove", "Volga"]
+    Main->>App: execute(args)
+    App->>App: remove(args), проверка числа аргументов
+    App->>Reg: removeShip("Volga")
+    Reg->>Reg: _ships.erase("Volga")
+    alt судно есть в списке
+        Reg-->>App: true
+        App-->>Main: "Судно 'Volga' удалено"
+    else судна нет
+        Reg-->>App: false
+        App-->>Main: "Ошибка: судно 'Volga' не найдено"
+    end
+    Main-->>User: вывод ответа на экран (std::cout)

@@ -1,0 +1,48 @@
+image: ubuntu:20.04
+
+stages:
+  - compile
+  - test
+  - delivery
+
+before_script:
+  - export DEBIAN_FRONTEND=noninteractive
+  - export TZ=Europe/Moscow
+  - apt-get -y update
+
+build-code:
+  stage: compile
+  script:
+    - apt-get -y install g++ make
+    - bash configure
+    - make
+  artifacts:
+    paths:
+      - bin/lab
+    expire_in: 30 minutes
+
+test-all:
+  stage: test
+  script:
+    - bash configure
+    - bash test/run-tests
+
+pages:
+  stage: delivery
+  script:
+    - apt-get -y install g++ make doxygen graphviz lcov
+    - doxygen doc/Doxyfile.cfg
+    - bash configure
+    - make
+    - bash test/run-tests
+    - lcov -t "lab" -o lab.info -c -d . --no-external
+    - genhtml -o coverage lab.info
+    - mv doc/html/ public/
+    - mv coverage/ public/coverage/
+  coverage: '/^\s*lines\.*:\s+\d+\.\d+%/'
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+    - master
