@@ -137,6 +137,10 @@ test/run-tests
 - 05_save_load - сохранение и загрузка из файла (в т.ч. файлы с ошибками broken.data и broken_type.data)
 - 06_no_exit - пустые строки и конец ввода без exit
 
+Репозиторий: https://github.com/Artemiy25/l1
+
+Тесты: https://github.com/Artemiy25/l1/tree/main/test
+
 ## Выводы
 
 В ходе работы были получены навыки составления словаря предметной области и диаграмм классов. Программа разделена на уровни UI, AL, DL и IL,
