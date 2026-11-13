@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-// работа с файлом, про суда ничего не знает
 class FileStorage
 {
 public:

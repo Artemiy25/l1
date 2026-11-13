@@ -5,7 +5,6 @@
 #include "hw/l3_DomainLayer.h"
 #include "hw/l4_InfrastructureLayer.h"
 
-// код типа в команде и в файле: cargo, tanker, cruise
 bool parseShipType(const std::string &code, ShipType &type)
 {
     if (code == "cargo")
@@ -45,12 +44,10 @@ std::string shipTypeName(ShipType type)
     return "";
 }
 
-// полный тоннаж включает сухой, поэтому не может быть меньше
 bool isShipDataCorrect(int dryTonnage, int fullTonnage)
 {
     return dryTonnage > 0 && fullTonnage >= dryTonnage;
 }
-
 
 Ship::Ship(const std::string &name, int dryTonnage, int fullTonnage, ShipType type)
 {
@@ -86,7 +83,6 @@ bool Ship::invariant() const
 {
     return !_name.empty() && isShipDataCorrect(_dryTonnage, _fullTonnage);
 }
-
 
 bool ShipRegistry::addShip(const Ship &ship)
 {
@@ -130,7 +126,6 @@ std::map<std::string, Ship> ShipRegistry::getShips() const
     return _ships;
 }
 
-// в файле каждое судно в отдельной строке: имя сухой_тоннаж полный_тоннаж тип
 bool ShipRegistry::saveToFile(const std::string &filename) const
 {
     std::vector<std::string> lines;
@@ -152,7 +147,6 @@ bool ShipRegistry::loadFromFile(const std::string &filename)
     if (!storage.loadLines(filename, lines))
         return false;
 
-    // если в файле ошибка то старый список не трогаем
     std::map<std::string, Ship> loaded;
 
     for (std::string line : lines)

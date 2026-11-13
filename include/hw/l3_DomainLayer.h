@@ -4,12 +4,11 @@
 #include <string>
 #include <map>
 
-// типы судов
 enum class ShipType
 {
-    DryCargo, // сухогруз
-    Tanker,   // танкер
-    Cruise    // круизный лайнер
+    DryCargo,
+    Tanker,
+    Cruise
 };
 
 bool parseShipType(const std::string &code, ShipType &type);
@@ -17,7 +16,6 @@ std::string shipTypeCode(ShipType type);
 std::string shipTypeName(ShipType type);
 bool isShipDataCorrect(int dryTonnage, int fullTonnage);
 
-// карточка судна
 class Ship
 {
 public:
@@ -32,12 +30,11 @@ public:
 
 private:
     std::string _name;
-    int _dryTonnage;  // сухой тоннаж, т
-    int _fullTonnage; // полный тоннаж, т (не меньше сухого)
+    int _dryTonnage;
+    int _fullTonnage;
     ShipType _type;
 };
 
-// все наблюдаемые суда
 class ShipRegistry {
 public:
     bool addShip(const Ship &ship);

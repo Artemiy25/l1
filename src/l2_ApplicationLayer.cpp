@@ -1,6 +1,5 @@
 #include "hw/l2_ApplicationLayer.h"
 
-// проверка что в строке целое число
 bool isNumber(std::string s)
 {
     if (s.length() == 0 || s.length() > 9)
@@ -43,7 +42,6 @@ std::string Application::execute(std::vector<std::string> args)
     return "Неизвестная команда '" + command + "'\n";
 }
 
-// add имя сухой_тоннаж полный_тоннаж тип
 std::string Application::add(std::vector<std::string> args)
 {
     if (args.size() != 5)
@@ -81,7 +79,6 @@ std::string Application::remove(std::vector<std::string> args)
     return "Судно '" + name + "' удалено\n";
 }
 
-// тип судна при изменении остается старый
 std::string Application::update(std::vector<std::string> args)
 {
     if (args.size() != 4) {
